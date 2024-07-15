@@ -1,1 +1,4 @@
 /target
+**/*.rs.bk
+pfetch-extractor/target
+pfetch-logo-parser/target
