@@ -56,7 +56,7 @@ pub trait ToString {
 
 impl ToString for Memory {
     fn to_string(&self) -> String {
-        format!("{} GB / {} GB", self.used, self.total)
+        format!("{}Gb / {}Gb", self.used, self.total)
     }
 }
 
@@ -138,50 +138,50 @@ pub fn fetch(opts: FetchOpts) -> Fetched {
 
     let mut fetched = Fetched::default();
 
-    if opts.os.unwrap_or(true) {
+    if let Some(true) = opts.os {
         let os = fetch_os(general);
         fetched.os = Some(os);
     }
-    if opts.kernel.unwrap_or(true) {
+    if let Some(true) = opts.kernel {
         let kernel_readout = KernelReadout::new();
         let kernel = fetch_kernel(&kernel_readout);
         fetched.kernel = Some(kernel);
     }
-    if opts.host.unwrap_or(true) {
+    if let Some(true) = opts.host {
         let host = fetch_host(general);
         fetched.host = Some(host);
     }
-    if opts.user.unwrap_or(true) {
+    if let Some(true) = opts.user {
         let user = fetch_user(general);
         fetched.user = Some(user);
     }
 
-    if opts.window_manager.unwrap_or(true) {
+    if let Some(true) = opts.window_manager {
         let window_manager = fetch_window_manager(general);
         fetched.window_manager = Some(window_manager);
     }
-    if opts.session.unwrap_or(true) {
+    if let Some(true) = opts.session {
         let session = fetch_session(general);
         fetched.session = Some(session);
     }
-    if opts.terminal.unwrap_or(true) {
+    if let Some(true) = opts.terminal {
         let terminal = fetch_terminal(general);
         fetched.terminal = Some(terminal);
     }
-    if opts.uptime.unwrap_or(true) {
+    if let Some(true) = opts.uptime {
         let uptime = fetch_uptime(general);
         fetched.uptime = Some(uptime);
     }
-    if opts.cpu.unwrap_or(true) {
+    if let Some(true) = opts.cpu {
         let cpu = fetch_cpu(general);
         fetched.cpu = Some(cpu);
     }
-    if opts.memory.unwrap_or(true) {
+    if let Some(true) = opts.memory {
         let memory_readout = MemoryReadout::new();
         let memory = fetch_memory(&memory_readout);
         fetched.memory = Some(memory);
     }
-    if opts.packages.unwrap_or(true) {
+    if let Some(true) = opts.packages {
         let package_readout = PackageReadout::new();
         let packages = fetch_packages(&package_readout);
         fetched.packages = Some(packages);

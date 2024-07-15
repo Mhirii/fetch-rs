@@ -7,41 +7,38 @@ mod utils;
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
     os: bool,
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
     host: bool,
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
     kernel: bool,
-    #[arg(long, default_value_t = true)]
+    #[arg(long)]
     user: bool,
 
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
     uptime: bool,
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
     cpu: bool,
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
     memory: bool,
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
     packages: bool,
 
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action)]
     wm: bool,
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action)]
     session: bool,
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action)]
     terminal: bool,
 
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action)]
     gpu1: bool,
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action)]
     gpu2: bool,
 }
 
 fn main() {
-    use std::time::Instant;
-    let start = Instant::now();
-
     let args = Args::parse();
 
     let opts = fetcher::FetchOpts {
@@ -65,8 +62,4 @@ fn main() {
     for (key, value) in lines {
         println!("{} {}", key, value);
     }
-
-    let duration = start.elapsed();
-
-    println!("Time elapsed in main() is: {:?}", duration);
 }
