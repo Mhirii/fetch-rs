@@ -2,6 +2,8 @@
 ## About
 A System Information Tool that i wrote to learn rust.
 
+<p align="center"><img src="https://github.com/Mhirii/fetch-rs/blob/main/assets/screenshot.png" width="80%"></p>
+
 ## Usage
 ```bash
 fetch-rs [options]
