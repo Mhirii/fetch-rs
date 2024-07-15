@@ -1,4 +1,4 @@
-use crate::fetcher::{self, Fetched};
+use crate::fetcher::Fetched;
 
 pub fn data_lines(data: Fetched) -> Vec<(String, String)> {
     let mut lines = vec![];

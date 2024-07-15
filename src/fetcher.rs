@@ -44,13 +44,6 @@ pub struct Fetched {
     pub gpu2: Option<String>,
 }
 
-pub struct Readouts {
-    general_readout: GeneralReadout,
-    package_readout: PackageReadout,
-    memory_readout: MemoryReadout,
-    kernel_readout: KernelReadout,
-}
-
 pub struct Memory {
     total: String,
     free: String,
@@ -64,15 +57,6 @@ pub trait ToString {
 impl ToString for Memory {
     fn to_string(&self) -> String {
         format!("{} GB / {} GB", self.used, self.total)
-    }
-}
-
-pub fn get_readouts() -> Readouts {
-    Readouts {
-        general_readout: GeneralReadout::new(),
-        package_readout: PackageReadout::new(),
-        memory_readout: MemoryReadout::new(),
-        kernel_readout: KernelReadout::new(),
     }
 }
 
