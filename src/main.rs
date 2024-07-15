@@ -63,9 +63,9 @@ fn main() {
     };
 
     let data = fetcher::fetch(opts);
-    let lines = printer::data_lines(data);
+    let lines = printer::space_lines(printer::data_lines(data));
     for (key, value) in lines {
-        println!("{}: {}", key, value);
+        println!("{} {}", key, value);
     }
 
     let duration = start.elapsed();
