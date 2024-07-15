@@ -3,7 +3,9 @@
 A System Information Tool that i wrote to learn rust.
 
 <p align="center"><img src="https://github.com/Mhirii/fetch-rs/blob/main/assets/screenshot.png" width="80%"></p>
-> the tool's name is no longer fetch-rs, use fetchr instead
+
+>  the tool's name is no longer fetch-rs, use fetchr instead
+
 ## Usage
 ```bash
 fetchr [options]
