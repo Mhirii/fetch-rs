@@ -1,5 +1,5 @@
 [package]
-name = "fetch-rs"
+name = "fetchrs"
 version = "0.1.0"
 edition = "2021"
 
