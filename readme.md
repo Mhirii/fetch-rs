@@ -36,3 +36,11 @@ fetch-rs [options]
 
 ## Credits
 Shoutout to [Gobidev](https://github.com/Gobidev) for his [pfetch](https://github.com/Gobidev/pfetch-rs), I was able to learn a lot and even used some of it's code, it was a great help. 
+
+|  Tool   | Mean [ms]  | Min [ms] | Max [ms] |
+| :---------------: | :--------: | :------: | :------: |
+| neofetch(shell)   | 67.6 ± 16.9  |   53.9    |   101.1    |
+| pfetch(rust)   | 64.4 ± 15.5  |   50.3    |   89.2    |
+| fetchrs(rust)   | 2.5 ± 0.1  |   2.3    |   3.1    |
+
+
