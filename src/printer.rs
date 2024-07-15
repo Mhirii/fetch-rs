@@ -1,3 +1,6 @@
+use colored::Colorize;
+use pfetch_logo_parser::{Logo, LogoPart};
+
 use crate::fetcher::Fetched;
 
 pub fn data_lines(data: Fetched) -> Vec<(String, String)> {
@@ -53,6 +56,63 @@ fn add_spaces(string: String, len: usize) -> (String, usize) {
         return (string, len);
     }
     add_spaces(string + " ", len)
+}
+
+pub fn render(info_lines: Vec<(String, String)>, logo: Logo, logo_enabled: bool) {
+    let raw_logo = if logo_enabled {
+        logo.logo_parts
+            .iter()
+            .map(|LogoPart { content, .. }| content.as_ref())
+            .collect::<String>()
+    } else {
+        "".to_string()
+    };
+
+    let logo = logo.to_string();
+    let mut logo_lines = logo.lines();
+    let raw_logo_lines: Vec<_> = raw_logo.lines().collect();
+
+    let line_amount = usize::max(raw_logo_lines.len(), info_lines.len());
+
+    let logo_width = raw_logo_lines
+        .iter()
+        .map(|line| line.chars().count())
+        .max()
+        .unwrap_or(0);
+
+    let padding1 = 2;
+    let padding2 = 2;
+    let padding3 = 2;
+
+    let mut result = String::new();
+    for l in 0..line_amount {
+        result += &format!(
+            "{padding1}\x1b[1m{logo}{padding2}{key}\x1b[0m{separator}{padding3}{value}\n",
+            padding1 = " ".repeat(padding1),
+            logo = if logo_enabled {
+                logo_lines.next().unwrap_or("")
+            } else {
+                ""
+            },
+            padding2 = " ".repeat(
+                logo_width - raw_logo_lines.get(l).map_or(0, |line| line.chars().count())
+                    + if logo_enabled { padding2 } else { 0 }
+            ),
+            key = info_lines.get(l).map_or("", |line| &line.0).blue().bold(),
+            separator = " ",
+            padding3 = " ".repeat(padding3),
+            value = info_lines.get(l).map_or("", |line| &line.1).white(),
+        )
+    }
+
+    // disable line wrap so that the logo dont get messed up on small terminals
+    crossterm::execute!(std::io::stdout(), crossterm::terminal::DisableLineWrap)
+        .unwrap_or_default();
+
+    println!("{result}");
+
+    // re enable line wrap
+    crossterm::execute!(std::io::stdout(), crossterm::terminal::EnableLineWrap).unwrap_or_default();
 }
 
 #[cfg(test)]

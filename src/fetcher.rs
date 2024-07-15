@@ -46,7 +46,7 @@ pub struct Fetched {
 
 pub struct Memory {
     total: String,
-    free: String,
+    // free: String,
     used: String,
 }
 
@@ -101,15 +101,19 @@ pub fn fetch_memory(readout: &MemoryReadout) -> String {
     let total = ok_readout(read_total);
     let total = memory_to_gb(total);
 
-    let read_free = readout.free();
-    let free = ok_readout(read_free);
-    let free = memory_to_gb(free);
+    // let read_free = readout.free();
+    // let free = ok_readout(read_free);
+    // let free = memory_to_gb(free);
 
     let read_used = readout.used();
     let used = ok_readout(read_used);
     let used = memory_to_gb(used);
 
-    let mem = Memory { total, free, used };
+    let mem = Memory {
+        total,
+        /*free,*/
+        used,
+    };
     mem.to_string()
 }
 
@@ -132,10 +136,7 @@ pub fn fetch_terminal(readout: &GeneralReadout) -> String {
 // pub fn fetch_user() -> String {
 // }
 
-pub fn fetch(opts: FetchOpts) -> Fetched {
-    let general_readout = GeneralReadout::new();
-    let general = &general_readout;
-
+pub fn fetch(general: &GeneralReadout, opts: FetchOpts) -> Fetched {
     let mut fetched = Fetched::default();
 
     if let Some(true) = opts.os {

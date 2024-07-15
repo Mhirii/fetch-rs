@@ -100,6 +100,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0d8c1fef690941d3e7788d328517591fecc684c084084702d6ff1641e993699a"
 
 [[package]]
+name = "bstr"
+version = "1.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "05efc5cfd9110c8416e471df0e96702d58690178e206e61b7173706673c93706"
+dependencies = [
+ "memchr",
+ "serde",
+]
+
+[[package]]
 name = "bumpalo"
 version = "3.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -375,8 +385,12 @@ dependencies = [
  "clap",
  "colored",
  "crossterm",
+ "glob",
+ "globset",
  "libmacchina",
  "os-release",
+ "pfetch-extractor",
+ "pfetch-logo-parser",
 ]
 
 [[package]]
@@ -529,6 +543,25 @@ dependencies = [
  "cfg-if 1.0.0",
  "libc",
  "wasi",
+]
+
+[[package]]
+name = "glob"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d2fabcfbdc87f4758337ca535fb41a6d701b65693ce38287d856d1674551ec9b"
+
+[[package]]
+name = "globset"
+version = "0.4.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "57da3b9b5b85bd66f31093f8c408b90a74431672542466497dcbdfdc02034be1"
+dependencies = [
+ "aho-corasick",
+ "bstr",
+ "log",
+ "regex-automata",
+ "regex-syntax",
 ]
 
 [[package]]
@@ -894,6 +927,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ad4972032c4a74a6726ed3039d9ed976701557f05445bb4315ba9ba554a4d734"
 dependencies = [
  "tracing",
+]
+
+[[package]]
+name = "pfetch-extractor"
+version = "0.2.2"
+dependencies = [
+ "pfetch-logo-parser",
+ "proc-macro2",
+ "quote",
+]
+
+[[package]]
+name = "pfetch-logo-parser"
+version = "0.1.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "regex",
 ]
 
 [[package]]

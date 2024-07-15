@@ -1,11 +1,12 @@
 mod fetcher;
+mod logo;
 mod printer;
 mod utils;
 
 use clap::{ArgAction, Parser};
-use colored::Colorize;
 use fetcher::{fetch, FetchOpts};
-use printer::{data_lines, space_lines};
+use libmacchina::{traits::GeneralReadout as _, GeneralReadout};
+use printer::{data_lines, render, space_lines};
 
 /// Simple program to greet a person
 #[derive(Parser, Debug)]
@@ -40,6 +41,9 @@ struct Args {
     gpu1: bool,
     #[arg(long, action)]
     gpu2: bool,
+
+    #[arg(long, action=ArgAction::SetFalse, default_value_t = true)]
+    logo: bool,
 }
 
 fn main() {
@@ -61,14 +65,14 @@ fn main() {
         gpu2: Some(args.gpu2),
     };
 
-    let data = fetch(opts);
+    let general_readout = GeneralReadout::new();
+    let general = &general_readout;
+
+    let data = fetch(general, opts);
     let lines = space_lines(data_lines(data));
 
-    // so that lines don't wrap on small terminals
-    crossterm::execute!(std::io::stdout(), crossterm::terminal::DisableLineWrap)
-        .unwrap_or_default();
+    let logo_name = fetcher::fetch_os(general);
+    let logo = logo::logo(&logo_name);
 
-    for (key, value) in lines {
-        println!("{} {}", key.blue().bold(), value.white());
-    }
+    render(lines, logo, args.logo);
 }
