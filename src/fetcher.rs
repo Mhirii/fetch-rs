@@ -1,5 +1,5 @@
 extern crate os_release;
-use crate::utils;
+use crate::utils::{memory_to_gb, ok_readout, seconds_to_string};
 use libmacchina::{
     traits::{GeneralReadout as _, KernelReadout as _, MemoryReadout as _, PackageReadout as _},
     GeneralReadout, KernelReadout, MemoryReadout, PackageReadout,
@@ -62,52 +62,52 @@ impl ToString for Memory {
 
 pub fn fetch_os(readout: &GeneralReadout) -> String {
     let read = readout.distribution();
-    utils::ok_readout(read).trim().to_string()
+    ok_readout(read).trim().to_string()
 }
 
 pub fn fetch_kernel(kernel_readout: &KernelReadout) -> String {
     let read = kernel_readout.os_release();
-    utils::ok_readout(read).trim().to_string()
+    ok_readout(read).trim().to_string()
 }
 
 pub fn fetch_host(readout: &GeneralReadout) -> String {
     let read = readout.hostname();
-    utils::ok_readout(read).trim().to_string()
+    ok_readout(read).trim().to_string()
 }
 
 pub fn fetch_window_manager(readout: &GeneralReadout) -> String {
     let read = readout.window_manager();
-    utils::ok_readout(read).trim().to_string()
+    ok_readout(read).trim().to_string()
 }
 
 pub fn fetch_session(readout: &GeneralReadout) -> String {
     let read = readout.session();
-    utils::ok_readout(read).trim().to_string()
+    ok_readout(read).trim().to_string()
 }
 
 pub fn fetch_uptime(readout: &GeneralReadout) -> String {
     let read = readout.uptime();
-    let time = utils::ok_readout(read);
-    utils::seconds_to_string(time)
+    let time = ok_readout(read);
+    seconds_to_string(time)
 }
 
 pub fn fetch_cpu(readout: &GeneralReadout) -> String {
     let read = readout.cpu_model_name();
-    utils::ok_readout(read).trim().to_string()
+    ok_readout(read).trim().to_string()
 }
 
 pub fn fetch_memory(readout: &MemoryReadout) -> String {
     let read_total = readout.total();
-    let total = utils::ok_readout(read_total);
-    let total = utils::memory_to_gb(total);
+    let total = ok_readout(read_total);
+    let total = memory_to_gb(total);
 
     let read_free = readout.free();
-    let free = utils::ok_readout(read_free);
-    let free = utils::memory_to_gb(free);
+    let free = ok_readout(read_free);
+    let free = memory_to_gb(free);
 
     let read_used = readout.used();
-    let used = utils::ok_readout(read_used);
-    let used = utils::memory_to_gb(used);
+    let used = ok_readout(read_used);
+    let used = memory_to_gb(used);
 
     let mem = Memory { total, free, used };
     mem.to_string()
@@ -121,12 +121,12 @@ pub fn fetch_packages(readout: &PackageReadout) -> String {
 
 pub fn fetch_user(readout: &GeneralReadout) -> String {
     let read = readout.username();
-    utils::ok_readout(read).trim().to_string()
+    ok_readout(read).trim().to_string()
 }
 
 pub fn fetch_terminal(readout: &GeneralReadout) -> String {
     let read = readout.terminal();
-    utils::ok_readout(read).trim().to_string()
+    ok_readout(read).trim().to_string()
 }
 
 // pub fn fetch_user() -> String {

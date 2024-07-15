@@ -5,5 +5,7 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.5.9", features = ["derive"] }
+colored = "2.1.0"
+crossterm = "0.27.0"
 libmacchina = "7.3.0"
 os-release = "0.1.0"

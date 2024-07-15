@@ -1,28 +1,32 @@
-use clap::Parser;
 mod fetcher;
 mod printer;
 mod utils;
+
+use clap::{ArgAction, Parser};
+use colored::Colorize;
+use fetcher::{fetch, FetchOpts};
+use printer::{data_lines, space_lines};
 
 /// Simple program to greet a person
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
-    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
+    #[arg(long, action=ArgAction::SetFalse, default_value_t = true)]
     os: bool,
-    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
+    #[arg(long, action=ArgAction::SetFalse, default_value_t = true)]
     host: bool,
-    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
+    #[arg(long, action=ArgAction::SetFalse, default_value_t = true)]
     kernel: bool,
     #[arg(long)]
     user: bool,
 
-    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
+    #[arg(long, action=ArgAction::SetFalse, default_value_t = true)]
     uptime: bool,
-    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
+    #[arg(long, action=ArgAction::SetFalse, default_value_t = true)]
     cpu: bool,
-    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
+    #[arg(long, action=ArgAction::SetFalse, default_value_t = true)]
     memory: bool,
-    #[arg(long, action=clap::ArgAction::SetFalse, default_value_t = true)]
+    #[arg(long, action=ArgAction::SetFalse, default_value_t = true)]
     packages: bool,
 
     #[arg(long, action)]
@@ -41,7 +45,7 @@ struct Args {
 fn main() {
     let args = Args::parse();
 
-    let opts = fetcher::FetchOpts {
+    let opts = FetchOpts {
         os: Some(args.os),
         host: Some(args.host),
         kernel: Some(args.kernel),
@@ -57,9 +61,14 @@ fn main() {
         gpu2: Some(args.gpu2),
     };
 
-    let data = fetcher::fetch(opts);
-    let lines = printer::space_lines(printer::data_lines(data));
+    let data = fetch(opts);
+    let lines = space_lines(data_lines(data));
+
+    // so that lines don't wrap on small terminals
+    crossterm::execute!(std::io::stdout(), crossterm::terminal::DisableLineWrap)
+        .unwrap_or_default();
+
     for (key, value) in lines {
-        println!("{} {}", key, value);
+        println!("{} {}", key.blue().bold(), value.white());
     }
 }
