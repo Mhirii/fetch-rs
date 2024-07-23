@@ -4,9 +4,11 @@ A System Information Tool that i wrote to learn rust.
 
 <p align="center"><img src="https://github.com/Mhirii/fetch-rs/blob/main/assets/screenshot.png" width="80%"></p>
 
+>  the tool's name is no longer fetch-rs, use fetchr instead
+
 ## Usage
 ```bash
-fetch-rs [options]
+fetchr [options]
 ```
 
 >  Options:  
@@ -37,6 +39,7 @@ fetch-rs [options]
 ## Credits
 Shoutout to [Gobidev](https://github.com/Gobidev) for his [pfetch](https://github.com/Gobidev/pfetch-rs), I was able to learn a lot and even used some of it's code, it was a great help. 
 
+## Performance
 |  Tool   | Mean [ms]  | Min [ms] | Max [ms] |
 | :---------------: | :--------: | :------: | :------: |
 | neofetch(shell)   | 67.6 ± 16.9  |   53.9    |   101.1    |
