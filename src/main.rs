@@ -42,6 +42,9 @@ struct Args {
     #[arg(long, action)]
     gpu2: bool,
 
+    #[arg(long, action)]
+    all: bool,
+
     #[arg(long, action=ArgAction::SetFalse, default_value_t = true)]
     logo: bool,
 }
@@ -63,6 +66,7 @@ fn main() {
         packages: Some(args.packages),
         gpu1: Some(args.gpu1),
         gpu2: Some(args.gpu2),
+        all: Some(args.all),
     };
 
     let general_readout = GeneralReadout::new();

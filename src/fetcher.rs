@@ -22,6 +22,8 @@ pub struct FetchOpts {
 
     pub gpu1: Option<bool>,
     pub gpu2: Option<bool>,
+
+    pub all: Option<bool>,
 }
 
 #[derive(Default)]
@@ -123,6 +125,17 @@ pub fn fetch_packages(readout: &PackageReadout) -> String {
     total.to_string().trim().to_string()
 }
 
+pub fn fetch_gpu1(readout: &GeneralReadout) -> String {
+    let read = readout.gpus();
+    let v = ok_readout(read);
+    String::from(&v[0])
+}
+pub fn fetch_gpu2(readout: &GeneralReadout) -> String {
+    let read = readout.gpus();
+    let v = ok_readout(read);
+    String::from(&v[1])
+}
+
 pub fn fetch_user(readout: &GeneralReadout) -> String {
     let read = readout.username();
     ok_readout(read).trim().to_string()
@@ -138,6 +151,23 @@ pub fn fetch_terminal(readout: &GeneralReadout) -> String {
 
 pub fn fetch(general: &GeneralReadout, opts: FetchOpts) -> Fetched {
     let mut fetched = Fetched::default();
+    let mut opts = opts;
+    if let Some(true) = opts.all {
+        opts.os = Some(true);
+        opts.os = Some(true);
+        opts.host = Some(true);
+        opts.kernel = Some(true);
+        opts.user = Some(true);
+        opts.uptime = Some(true);
+        opts.cpu = Some(true);
+        opts.memory = Some(true);
+        opts.window_manager = Some(true);
+        opts.session = Some(true);
+        opts.terminal = Some(true);
+        opts.packages = Some(true);
+        opts.gpu1 = Some(true);
+        opts.gpu2 = Some(true);
+    }
 
     if let Some(true) = opts.os {
         let os = fetch_os(general);
