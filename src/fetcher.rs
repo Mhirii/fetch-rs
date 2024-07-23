@@ -217,6 +217,14 @@ pub fn fetch(general: &GeneralReadout, opts: FetchOpts) -> Fetched {
         let packages = fetch_packages(&package_readout);
         fetched.packages = Some(packages);
     }
+    if let Some(true) = opts.gpu1 {
+        let gpu1 = fetch_gpu1(general);
+        fetched.gpu1 = Some(gpu1)
+    }
+    if let Some(true) = opts.gpu2 {
+        let gpu2 = fetch_gpu2(general);
+        fetched.gpu2 = Some(gpu2)
+    }
 
     fetched
 }
