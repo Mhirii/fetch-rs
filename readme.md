@@ -24,6 +24,7 @@ fetchr [options]
 >     --session  
 >     --terminal  
 >     --logo  
+>     --all  
 > -h, --help      Print help  
 > -V, --version   Print version  
 
