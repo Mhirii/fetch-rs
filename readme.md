@@ -31,6 +31,7 @@ fetchr [options]
 
   
 ## TODO list
+- [x] CLI flags
 - [x] Customization through CLI args
 - [ ] Color Customization  
 - [ ] Config File  
